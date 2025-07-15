@@ -139,6 +139,8 @@ class Visualizer:
     def animate_trajectory(self, interval=50, save = False):
         #Cria uma animação da trajetória do paraquedas.
         #interval (int): Intervalo entre frames em milissegundos
+
+        #Não sei o que ta acontecendo, mas não funciona por enquanto
         
         if self.sol is None:
             raise ValueError("Solução não carregada. Use load_solution() primeiro.")
@@ -204,7 +206,7 @@ class Visualizer:
         # Salva a animação
         if save:
             # Garante que o diretório existe
-            os.makedirs(os.path.dirname(self.results_dir), exist_ok=True)
+            os.makedirs(self.results_dir, exist_ok=True)
             ani.save(self.results_dir, writer='pillow', fps=1000/interval)
             plt.close()
             return self.results_dir

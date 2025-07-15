@@ -21,9 +21,9 @@
 - **Direção**: -55.7° da horizontal
 
 ## Eventos de Abertura
-- Abertura Drogue: 108.97s (vy = -73.51 m/s)
-- Abertura Reefing: 449.95s (vy = -21.02 m/s)
-- Abertura Main: 499.66s (vy = -9.85 m/s)
+- Abertura Drogue: 108.97s (vy = -73.48 m/s)
+- Abertura Reefing: 449.95s (vy = -20.99 m/s)
+- Abertura Main: 499.66s (vy = -9.84 m/s)
 
 ## Visualizações
 

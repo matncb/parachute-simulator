@@ -178,7 +178,9 @@ class Solver:
         # Como nesse modelo o paraquedas simplesmente aparace, geramos uma descontinuidade --> Equações rígidas
         # Usando o Radau os resultados parecem melhores
 
-        #Obs: Trocar o método também resolve o problema de overflow que tinha no código anterior por algum motivo misterioso
+        # Obs: Trocar o método também resolve o problema de overflow que tinha no código anterior por algum motivo misterioso
+
+        # É notável que o foguete sempre atinge velocidade terminal muito rápido, o que explica os saltos no gráfico. Logo, um modelo puramente analítico, que resolve y(t) e x(t) apenas considerando velocidades terminais provavelmente daria certo.
         
         t_eval = np.arange(0, t_max, dt)
 
@@ -195,6 +197,7 @@ class Solver:
             func,
             [0, t_max],
             [self.ap,0,0,0],
+            t_eval=t_eval,
             method=method,
             events=ground_event,
             rtol=rtol,

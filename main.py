@@ -11,6 +11,6 @@ if __name__ == "__main__":
     # Carregar no visualizador e gerar relatório
     visualizer = Visualizer()
     visualizer.load_solution(solver)
-    report_path = visualizer.generate_report()
+    report_path = visualizer.generate_report(generate_animation=False) # A animação não funciona por enquanto
 
     print(f"Relatório gerado em: {report_path}")

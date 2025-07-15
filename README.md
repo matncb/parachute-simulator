@@ -17,7 +17,7 @@ Este projeto simula numericamente a queda de um foguete equipado com um sistema 
   - Três estágios de paraquedas com altitudes de abertura distintas.
   - Cálculo da força de arrasto com densidade variável do ar.
   - Efeitos de vento horizontal e vertical.
-- Solução numérica robusta usando métodos para equações rígidas (`Radau`).
+- Solução numérica usando métodos para equações rígidas (`Radau`).
 - Visualização da simulação:
   - Gráficos de trajetória, altitude, velocidade, componentes e velocidade escalar.
   - Animação da trajetória (ainda não funciona).

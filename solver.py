@@ -191,73 +191,16 @@ class Solver:
         ground_event.terminal = True 
         ground_event.direction = -1 # Troca de sinal
 
-        # Eventos para abertura de paraquedas
-        def event_drogue(t, S):
-            return S[0] - self.yd
-        event_drogue.terminal = True
-        event_drogue.direction = -1
-        
-        def event_reefing(t, S):
-            return S[0] - self.yr
-        event_reefing.terminal = True
-        event_reefing.direction = -1
-        
-        def event_main(t, S):
-            return S[0] - self.ym
-        event_main.terminal = True
-        event_main.direction = -1
-        
-        events = [ground_event, event_drogue, event_reefing, event_main]
+        sol = solve_ivp(
+            func,
+            [0, t_max],
+            [self.ap,0,0,0],
+            method=method,
+            events=ground_event,
+            rtol=rtol,
+            atol=atol
+        )
 
-        # Integração por etapas para tratar descontinuidades
-        t_start = 0
-        S0 = [self.ap, 0, 0, 0]  # Estado inicial
-        t_span = [0, t_max]
-        
-        # Armazenar soluções parciais
-        sols = []
-
-        while t_start < t_max:
-            sol = solve_ivp(
-                func,
-                [t_start, t_max],
-                S0,
-                method=method,
-                events=events,
-                rtol=rtol,
-                atol=atol
-            )
-            
-            sols.append(sol)
-            
-            # Verifica qual evento terminou a integração
-            if sol.t_events[0].size > 0:  # Chegou ao solo
-                break
-            elif sol.t_events[1].size > 0:  # Abertura drogue
-                S0 = sol.y[:, -1]
-                t_start = sol.t[-1]
-                # Remove evento já ocorrido
-                events = [ground_event, event_reefing, event_main]
-            elif sol.t_events[2].size > 0:  # Abertura reefing
-                S0 = sol.y[:, -1]
-                t_start = sol.t[-1]
-                # Remove evento já ocorrido
-                events = [ground_event, event_main]
-            elif sol.t_events[3].size > 0:  # Abertura main
-                S0 = sol.y[:, -1]
-                t_start = sol.t[-1]
-                # Remove evento já ocorrido
-                events = [ground_event]
-            else:
-                break
-        
-        # Combinar todas as soluções
-        t_all = np.concatenate([s.t for s in sols])
-        y_all = np.hstack([s.y for s in sols])
-        
-        # Criar objeto de solução unificado
-        self.sol = type('', (), {})()
-        self.sol.t = t_all
-        self.sol.y = y_all
+        self.sol = sol
     
 
